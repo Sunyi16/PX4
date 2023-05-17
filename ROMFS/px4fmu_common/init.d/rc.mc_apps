@@ -51,7 +51,7 @@ fi
 #
 # Start Multicopter Rate Controller.
 #
-mc_rate_control start
+mc_rate_control_adrc start
 
 #
 # Start Multicopter Attitude Controller.
@@ -63,7 +63,8 @@ mc_att_control start
 #
 mc_hover_thrust_estimator start
 mc_pos_control start
-
+#first start
+#my_workq start
 #
 # Start Multicopter Land Detector.
 #

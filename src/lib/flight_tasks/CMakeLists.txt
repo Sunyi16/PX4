@@ -64,6 +64,7 @@ list(APPEND flight_tasks_all
 	Descend
 	Transition
 	${flight_tasks_to_add}
+	my_task
 )
 
 # set the files to be generated

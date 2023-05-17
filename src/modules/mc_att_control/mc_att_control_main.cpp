@@ -70,7 +70,6 @@ MulticopterAttitudeControl::MulticopterAttitudeControl(bool vtol) :
 	/* initialize quaternions in messages to be valid */
 	_v_att.q[0] = 1.f;
 	_v_att_sp.q_d[0] = 1.f;
-
 	parameters_updated();
 }
 
@@ -251,6 +250,44 @@ MulticopterAttitudeControl::publish_rates_setpoint()
 }
 
 void
+MulticopterAttitudeControl::control_morph()
+{
+	float angle1 = (float)_param_angle_arm_one.get()/10;
+	float angle2 = (float)_param_angle_arm_two.get()/10;
+	float angle3 = (float)_param_angle_arm_three.get()/10;
+	float angle4 = (float)_param_angle_arm_four.get()/10;
+
+	actuator_controls_s _actuators2;
+	if((double)_manual_control_sp.aux2>0.0)
+	{
+	if( (double)_manual_control_sp.aux1>0.0)
+	{
+	_actuators2.control[4] = -1.0f;//-30
+	_actuators2.control[5] = -1.0f;
+	_actuators2.control[6] = -1.0f;
+	_actuators2.control[7] = -1.0f;
+	}
+	else
+	{
+	_actuators2.control[4] = -0.5f;//1500，对应舵机0度
+	_actuators2.control[5] = -0.5f;
+	_actuators2.control[6] = -0.5f;
+	_actuators2.control[7] = -0.5f;
+	}}
+	else
+	{
+	_actuators2.control[4] = angle1;
+	_actuators2.control[5] = angle2;
+	_actuators2.control[6] = angle3;
+	_actuators2.control[7] = angle4;
+	}
+	//_actuators2.control[7] = 1.0f;//对应2000us最高值
+	_actuators2.timestamp = hrt_absolute_time();
+	//_actuators2.timestamp_sample = _ctrl_state.timestamp;
+	_actuators2_set.publish(_actuators2);
+}
+
+void
 MulticopterAttitudeControl::Run()
 {
 	if (should_exit()) {
@@ -344,6 +381,7 @@ MulticopterAttitudeControl::Run()
 
 	}
 
+	control_morph();
 	perf_end(_loop_perf);
 }
 

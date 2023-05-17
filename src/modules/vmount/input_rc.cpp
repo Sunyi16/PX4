@@ -36,24 +36,18 @@
  * @author Beat Küng <beat-kueng@gmx.net>
  *
  */
-
-#include "input_rc.h"
-
 #include <math.h>
 #include <errno.h>
 #include <px4_platform_common/posix.h>
 #include <px4_platform_common/defines.h>
-
-
+#include"input_rc.h"
 namespace vmount
 {
 
 
-InputRC::InputRC(bool do_stabilization, int aux_channel_roll, int aux_channel_pitch, int aux_channel_yaw)
+ InputRC::InputRC(bool do_stabilization, int aux_channel_roll, int aux_channel_pitch, int aux_channel_yaw)
 	: _do_stabilization(do_stabilization)
 {
-	_aux_channels[0] = aux_channel_roll;
-	_aux_channels[1] = aux_channel_pitch;
 	_aux_channels[2] = aux_channel_yaw;
 }
 

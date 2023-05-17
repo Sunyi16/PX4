@@ -19,6 +19,7 @@ px4_add_board(
 		#telemetry # all available telemetry drivers
 		tone_alarm
 		#uavcan
+		#second
 	MODULES
 		airspeed_selector
 		attitude_estimator_q
@@ -38,7 +39,8 @@ px4_add_board(
 		mc_att_control
 		mc_hover_thrust_estimator
 		mc_pos_control
-		mc_rate_control
+		mc_rate_control_adrc
+		#mc_rate_control_adrc
 		navigator
 		rc_update
 		replay
@@ -50,6 +52,7 @@ px4_add_board(
 		vmount
 		vtol_att_control
 		uuv_att_control
+		#first
 
 	SYSTEMCMDS
 		#config
@@ -85,6 +88,7 @@ px4_add_board(
 		rover_steering_control # Rover example app
 		uuv_example_app
 		work_item
+		#my_workq
 	)
 
 set(config_sitl_viewer jmavsim CACHE STRING "viewer for sitl")

@@ -1,5 +1,5 @@
 /****************************************************************************
- *
+ *copyright
  *   Copyright (c) 2013-2019 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without

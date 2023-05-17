@@ -97,6 +97,8 @@ px4_add_board(
 		#temperature_compensation
 		vmount
 		#vtol_att_control
+		#steering_engine
+		first
 	SYSTEMCMDS
 		bl_update
 		#config

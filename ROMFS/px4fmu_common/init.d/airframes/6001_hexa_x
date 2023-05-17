@@ -11,11 +11,6 @@
 # @output MAIN4 motor 4
 # @output MAIN5 motor 5
 # @output MAIN6 motor 6
-#
-# @output AUX1 feed-through of RC AUX1 channel
-# @output AUX2 feed-through of RC AUX2 channel
-# @output AUX3 feed-through of RC AUX3 channel
-#
 # @maintainer Lorenz Meier <lorenz@px4.io>
 #
 # @board intel_aerofc-v1 exclude
@@ -27,4 +22,4 @@ sh /etc/init.d/rc.mc_defaults
 set MIXER hexa_x
 
 # Need to set all 8 channels
-set PWM_OUT 12345678
+set PWM_OUT 123456

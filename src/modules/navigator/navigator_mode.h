@@ -56,7 +56,7 @@ public:
 	/**
 	 * This function is called while the mode is inactive
 	 */
-	virtual void on_inactive();
+	virtual void on_inactive();//虚函数虚函数
 
 	/**
 	 * This function is called one time when mode becomes active, pos_sp_triplet must be initialized here

@@ -93,7 +93,7 @@ RTL::find_RTL_destination()
 		if (dist_squared < min_dist_squared || rtl_type() != RTL_CLOSEST) {
 			min_dist_squared = dist_squared;
 			_destination.lat = _navigator->get_mission_landing_lat();
-			_destination.lon = _navigator->get_mission_landing_lon();
+			_desticurrent8nation.lon = _navigator->get_mission_landing_lon();
 			_destination.alt = _navigator->get_mission_landing_alt();
 			_destination.type = RTL_DESTINATION_MISSION_LANDING;
 
@@ -200,16 +200,24 @@ RTL::on_activation()
 		// For safety reasons don't go into RTL if landed.
 		_rtl_state = RTL_STATE_LANDED;
 
-	} else if ((_destination.type == RTL_DESTINATION_MISSION_LANDING) && _navigator->on_mission_landing()) {
+	}
+	else if ((_destination.type == RTL_DESTINATION_MISSION_LANDING) && _navigator->on_mission_landing()) {
 		// RTL straight to RETURN state, but mission will takeover for landing.
 
-	} else if ((global_position.alt < _destination.alt + _param_rtl_return_alt.get()) || _rtl_alt_min) {
+	}
+	else if ((global_position.alt < _destination.alt + _param_rtl_return_alt.get()) || _rtl_alt_min) {
 
 		// If lower than return altitude, climb up first.
 		// If rtl_alt_min is true then forcing altitude change even if above.
 		_rtl_state = RTL_STATE_CLIMB;
 
-	} else {
+	/*else if((_navigator->get_global_position()->alt > _navigator->get_home_position()->alt+_param_rtl_return_alt.get())||_rtl_alt_min){
+		_rtl_state=RTL_STATE_LOITER1;
+	}else if((_navigator->get_global_position()->alt < _navigator->get_home_position()->alt+_param_rtl_return_alt.get())||_rtl_alt_min){
+		_rtl_state=RTL_STATE_CLIMB;
+	}*/
+	}
+	else {
 		// Otherwise go straight to return
 		_rtl_state = RTL_STATE_RETURN;
 	}
@@ -342,8 +350,8 @@ RTL::set_rtl_item()
 			// Disable previous setpoint to prevent drift.
 			pos_sp_triplet->previous.valid = false;
 
-			mavlink_and_console_log_info(_navigator->get_mavlink_log_pub(), "RTL: descend to %d m (%d m above destination)",
-						     (int)ceilf(_mission_item.altitude), (int)ceilf(_mission_item.altitude - _destination.alt));
+		//	mavlink_and_console_log_info(_navigator->get_mavlidestination_dist < _paramnk_log_pub(), "RTL: descend to %d m (%d m above destination)",
+		//				     (int)ceilf(_mission_item.altitude), (int)ceilf(_mission_item.altitude - _destination.alt));
 			break;
 		}
 
@@ -400,6 +408,55 @@ RTL::set_rtl_item()
 			break;
 		}
 
+/*case RTL_STATE_LOITER1:{
+        if(destination_dist > _param_rtl_min_dist.get()){
+            _mission_item.nav_cmd = NAV_CMD_LOITER_TIME_LIMIT;
+            _mission_item.lat = gpos.lat;
+            _mission_item.lon = gpos.lon;
+            _mission_item.altitude = _rtl_alt;
+            _mission_item.altitude_is_relative = false;
+            _mission_item.yaw = get_bearing_to_next_waypoint(gpos.lat, gpos.lon, home.lat, home.lon);
+            _mission_item.acceptance_radius = _navigator->get_acceptance_radius();
+            _mission_item.time_inside = 1.0f;
+            _mission_item.autocontinue = true;
+            _mission_item.origin = ORIGIN_ONBOARD;
+            mavlink_and_console_log_info(_navigator->get_mavlink_log_pub(), "RTL: loiter1_1 %.1fs",
+                             (double)get_time_inside(_mission_item));
+        }else{
+            _mission_item.nav_cmd = NAV_CMD_LOITER_TIME_LIMIT;
+            _mission_item.lat = gpos.lat;
+            _mission_item.lon = gpos.lon;
+            _mission_item.altitude = gpos.alt;
+            _mission_item.altitude_is_relative = false;
+            _mission_item.yaw = home.yaw;
+            _mission_item.acceptance_radius = _navigator->get_acceptance_radius();
+            _mission_item.time_inside = max(_param_land_delay.get(), 0.0f);
+            _mission_item.autocontinue = true;
+            _mission_item.origin = ORIGIN_ONBOARD;
+            mavlink_and_console_log_info(_navigator->get_mavlink_log_pub(), "RTL: loiter1_2 %.1fs",
+                             (double)get_time_inside(_mission_item));
+        }
+            break;
+}
+
+case RTL_STATE_LOITER2:{
+            _mission_item.nav_cmd = NAV_CMD_LOITER_TIME_LIMIT;
+            _mission_item.lat = gpos.lat;
+            _mission_item.lon = gpos.lon;
+            _mission_item.altitude = return_alt;
+            _mission_item.altitude_is_relative = false;
+            _mission_item.yaw = home.yaw;
+            _mission_item.acceptance_radius = _navigator->get_acceptance_radius();
+            _mission_item.time_inside = 1.0f;
+            _mission_item.autocontinue = true;
+            _mission_item.origin = ORIGIN_ONBOARD;
+            mavlink_and_console_log_info(_navigator->get_mavlink_log_pub(), "RTL: loiter2 %.1fs",
+                             (double)get_time_inside(_mission_item));
+            break;
+
+
+	}
+*/
 	default:
 		break;
 	}

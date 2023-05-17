@@ -70,9 +70,9 @@ public:
 
 	~RTL() = default;
 
-	void on_inactive() override;
-	void on_activation() override;
-	void on_active() override;
+	void on_inactive() override;//退出函数
+	void on_activation() override;//初始化函数
+	void on_active() override;//主函数
 
 	void find_RTL_destination();
 
@@ -105,6 +105,9 @@ private:
 		RTL_STATE_LOITER,
 		RTL_STATE_LAND,
 		RTL_STATE_LANDED,
+	//	RTL_STATE_LOITER1,//悬停对头
+	//	RTL_STATE_LOITER2,//悬停对尾
+
 	} _rtl_state{RTL_STATE_NONE};
 
 	struct RTLPosition {
@@ -126,8 +129,8 @@ private:
 		}
 	};
 
-	RTLPosition _destination{}; ///< the RTL position to fly to (typically the home position or a safe point)
-
+	RTLPosition _destination{}; //< the RTL position to fly to (typically the home position or a safe point)
+	RTLPosition _desticurrent8nation;//自更改（不知道对错）
 	float _rtl_alt{0.0f};	// AMSL altitude at which the vehicle should return to the home position
 	bool _rtl_alt_min{false};
 

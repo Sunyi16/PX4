@@ -146,14 +146,14 @@ enum NAV_FRAME {
 #endif // GCC >= 5 || Clang
 
 struct mission_item_s {
-	double lat;					/**< latitude in degrees				*/
-	double lon;					/**< longitude in degrees				*/
+	double lat;					/**< latitude in degrees	纬度			*/
+	double lon;					/**< longitude in degrees		经度		*/
 	union {
 		struct {
 			union {
-				float time_inside;		/**< time that the MAV should stay inside the radius before advancing in seconds */
-				float pitch_min;		/**< minimal pitch angle for fixed wing takeoff waypoints */
-				float circle_radius;		/**< geofence circle radius in meters (only used for NAV_CMD_NAV_FENCE_CIRCLE*) */
+				float time_inside;		/**< MAV在前进前停留在半径内的时间（秒） */
+				float pitch_min;		/**< 固定翼起飞航路点的最小俯仰角 */
+				float circle_radius;		/**< 地理围栏圆半径（米）（仅用于NAV_CMD_NAV_FENCE_circle*) */
 			};
 			float acceptance_radius;		/**< default radius in which the mission is accepted as reached in meters */
 			float loiter_radius;			/**< loiter radius in meters, 0 for a VTOL to hover, negative for counter-clockwise */

@@ -25,6 +25,6 @@ fi
 #
 # This is the gimbal pass mixer.
 #
-set MIXER_AUX pass
+set MIXER_AUX steer
 
 set PWM_AUX_OUT 1234

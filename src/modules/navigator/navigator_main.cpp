@@ -475,12 +475,13 @@ Navigator::run()
 		/* Do stuff according to navigation state set by commander */
 		NavigatorMode *navigation_mode_new{nullptr};
 
+		/*通过命令选择导航模式*/
 		switch (_vstatus.nav_state) {
 		case vehicle_status_s::NAVIGATION_STATE_AUTO_MISSION:
 			_pos_sp_triplet_published_invalid_once = false;
 
 			_mission.set_execution_mode(mission_result_s::MISSION_EXECUTION_MODE_NORMAL);
-			navigation_mode_new = &_mission;
+			navigation_mode_new = &_mission;//进入自主任务模式，跳转到mission.cpp执行
 
 			break;
 

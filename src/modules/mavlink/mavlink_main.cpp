@@ -1811,10 +1811,10 @@ int
 Mavlink::task_main(int argc, char *argv[])
 {
 	int ch;
-	_baudrate = 57600;
+	_baudrate = 57600;//波特率
 	_datarate = 0;
-	_mode = MAVLINK_MODE_COUNT;
-	bool _force_flow_control = false;
+	_mode = MAVLINK_MODE_COUNT;//默认启动模式
+	bool _force_flow_control = false;//串口的默认流量控制为关闭状态
 
 	_interface_name = nullptr;
 
