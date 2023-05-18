@@ -10,9 +10,6 @@
 #include <math.h>
 #include <px4_platform_common/defines.h>
 
-Fhan_Data ADRC_Pitch_Controller;
-Fhan_Data ADRC_Roll_Controller;
-Fhan_Data ADRC_Yaw_Controller;
 const float ADRC_Unit[4][16]=
 {
   /*TD跟踪微分器   改进最速TD,h0=N*h      扩张状态观测器ESO           扰动补偿     非线性组合*/

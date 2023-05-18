@@ -38,7 +38,7 @@
 #include <RateControl.hpp>
 #include <px4_platform_common/defines.h>
 
-#include<lib/adrc/adrc.h>
+//#include<lib/adrc/adrc.h>
 
 using namespace matrix;
 
@@ -68,16 +68,16 @@ Vector3f RateControl::update(const Vector3f &rate, const Vector3f &rate_sp, cons
 	// PID control with feed forward
 	//const Vector3f torque = _gain_p.emult(rate_error) + _rate_int - _gain_d.emult(angular_accel) + _gain_ff.emult(rate_sp);
 	//ADRC control
-	Fhan_Data *adrc_input1 , *adrc_input2 , *adrc_input3;
+	Fhan_Data adrc_input1 , adrc_input2 , adrc_input3;
 	adrc_input1 = {0};
 	adrc_input2 = {0};
 	adrc_input3 = {0};
 	Vector3f torque;
-	ADRC_Init(adrc_input1,adrc_input2,adrc_input3);
-	torque(0)= ADRC_Control(adrc_input1 , rate_sp(0) , rate(0));
-	torque(1)= ADRC_Control(adrc_input2 , rate_sp(1) , rate(1));
-	torque(2)= ADRC_Control(adrc_input3 , rate_sp(2) , rate(2));
-	// update integral only if we are not landed
+	ADRC_Init(&adrc_input1,&adrc_input2,&adrc_input3);
+	torque(0)= ADRC_Control(&adrc_input1 , rate_sp(0) , rate(0));
+	torque(1)= ADRC_Control(&adrc_input2 , rate_sp(1) , rate(1));
+	torque(2)= ADRC_Control(&adrc_input3 , rate_sp(2) , rate(2));
+	 //update integral only if we are not landed
 	/* if (!landed) {
 		updateIntegral(rate_error, dt);
 	} */

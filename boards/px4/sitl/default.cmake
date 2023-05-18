@@ -39,8 +39,8 @@ px4_add_board(
 		mc_att_control
 		mc_hover_thrust_estimator
 		mc_pos_control
+		#mc_rate_control
 		mc_rate_control_adrc
-		#mc_rate_control_adrc
 		navigator
 		rc_update
 		replay

@@ -264,7 +264,12 @@ MulticopterRateControl_adrc::Run()
 				}
 			}
 
-			// run rate controller
+			// run rate controller-ADRC
+/* 			Fhan_Data adrc_input1 , adrc_input2 , adrc_input3;
+			adrc_input1 = {0};
+			adrc_input2 = {0};
+			adrc_input3 = {0};
+			ADRC_Init(&adrc_input1,&adrc_input2,&adrc_input3); */
 			const Vector3f att_control = _rate_control.update(rates, _rates_sp, angular_accel, dt, _maybe_landed || _landed);
 
 			// publish rate controller status
