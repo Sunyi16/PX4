@@ -212,8 +212,8 @@ MulticopterAttitudeControl::generate_attitude_setpoint(float dt, bool reset_yaw_
 	}
 
 	/* copy quaternion setpoint to attitude setpoint topic */
-	Quatf q_sp = Eulerf(attitude_setpoint.roll_body, attitude_setpoint.pitch_body, attitude_setpoint.yaw_body);
-	q_sp.copyTo(attitude_setpoint.q_d);
+	Quatf q_sp = Eulerf(attitude_setpoint.roll_body, attitude_setpoint.pitch_body, attitude_setpoint.yaw_body);//欧拉角转化为四元数
+	q_sp.copyTo(attitude_setpoint.q_d);//手动控制的姿态与位置控制的输出合并
 
 	attitude_setpoint.thrust_body[2] = -throttle_curve(_manual_control_sp.z);
 	attitude_setpoint.timestamp = hrt_absolute_time();
@@ -241,9 +241,9 @@ MulticopterAttitudeControl::publish_rates_setpoint()
 	v_rates_sp.roll = _rates_sp(0);
 	v_rates_sp.pitch = _rates_sp(1);
 	v_rates_sp.yaw = _rates_sp(2);
-	v_rates_sp.thrust_body[0] = _v_att_sp.thrust_body[0];
-	v_rates_sp.thrust_body[1] = _v_att_sp.thrust_body[1];
-	v_rates_sp.thrust_body[2] = _v_att_sp.thrust_body[2];
+	v_rates_sp.thrust_body[0] = _v_att_sp.thrust_body[0];//0
+	v_rates_sp.thrust_body[1] = _v_att_sp.thrust_body[1];//0
+	v_rates_sp.thrust_body[2] = _v_att_sp.thrust_body[2];//油门
 	v_rates_sp.timestamp = hrt_absolute_time();
 
 	_v_rates_sp_pub.publish(v_rates_sp);

@@ -37,6 +37,7 @@ px4_add_board(
 		logger
 		mavlink
 		mc_att_control
+		#mc_att_control_smc
 		mc_hover_thrust_estimator
 		mc_pos_control
 		#mc_rate_control

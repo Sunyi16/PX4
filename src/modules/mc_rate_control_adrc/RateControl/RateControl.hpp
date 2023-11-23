@@ -44,8 +44,9 @@
 
 #include <lib/mixer/MultirotorMixer/MultirotorMixer.hpp>
 #include <uORB/topics/rate_ctrl_status.h>
+//#include<lib/adrc/adrc.h>
+#include<lib/ladrc/ladrc.h>
 #include<lib/adrc/adrc.h>
-
 
 class RateControl
 {
@@ -87,7 +88,7 @@ public:
 	 * @param dt desired vehicle angular rate setpoint
 	 * @return [-1,1] normalized torque vector to apply to the vehicle
 	 */
-	matrix::Vector3f update(const matrix::Vector3f &rate, const matrix::Vector3f &rate_sp,
+	matrix::Vector3f update(const matrix::Vector3f &rate,const matrix::Vector3f &rate_sp,
 				const matrix::Vector3f &angular_accel, const float dt, const bool landed);
 
 	/**

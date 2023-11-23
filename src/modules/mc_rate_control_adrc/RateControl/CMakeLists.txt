@@ -39,6 +39,6 @@ target_include_directories(RateControl
 	${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(RateControl PRIVATE mathlib adrc)
+target_link_libraries(RateControl PRIVATE mathlib ladrc adrc)
 
 px4_add_unit_gtest(SRC RateControlTest.cpp LINKLIBS RateControl)

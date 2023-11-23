@@ -51,13 +51,13 @@ fi
 #
 # Start Multicopter Rate Controller.
 #
-mc_rate_control start
-
+mc_rate_control_adrc start
+#mc_rate_control start
 #
 # Start Multicopter Attitude Controller.
 #
+#mc_att_control_smc start
 mc_att_control start
-
 #
 # Start Multicopter Position Controller.
 #

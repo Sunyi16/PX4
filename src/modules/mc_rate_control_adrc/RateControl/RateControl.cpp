@@ -38,6 +38,11 @@
 #include <RateControl.hpp>
 #include <px4_platform_common/defines.h>
 
+//用来输出数据调试的头文件
+#include<iostream>
+#include<fstream>
+using namespace std;
+
 //#include<lib/adrc/adrc.h>
 
 using namespace matrix;
@@ -59,28 +64,40 @@ void RateControl::setSaturationStatus(const MultirotorMixer::saturation_status &
 	_mixer_saturation_negative[2] = status.flags.yaw_neg;
 }
 
-Vector3f RateControl::update(const Vector3f &rate, const Vector3f &rate_sp, const Vector3f &angular_accel,
+Vector3f RateControl::update(const Vector3f &rate,const Vector3f &rate_sp, const Vector3f &angular_accel,
 			     const float dt, const bool landed)
 {
 	// angular rates error
-	//Vector3f rate_error = rate_sp - rate;
+	Vector3f rate_error = rate_sp - rate;
 
 	// PID control with feed forward
 	//const Vector3f torque = _gain_p.emult(rate_error) + _rate_int - _gain_d.emult(angular_accel) + _gain_ff.emult(rate_sp);
-	//ADRC control
-	Fhan_Data adrc_input1 , adrc_input2 , adrc_input3;
-	adrc_input1 = {0};
-	adrc_input2 = {0};
-	adrc_input3 = {0};
+
+	//LADRC control
+/* 	static LADRC_param LADRC_Pitch={0} , LADRC_Roll={0} , LADRC_Yaw={0};
+	LADRC_init(&LADRC_Pitch, &LADRC_Roll, &LADRC_Yaw);
 	Vector3f torque;
-	ADRC_Init(&adrc_input1,&adrc_input2,&adrc_input3);
-	torque(0)= ADRC_Control(&adrc_input1 , rate_sp(0) , rate(0));
-	torque(1)= ADRC_Control(&adrc_input2 , rate_sp(1) , rate(1));
-	torque(2)= ADRC_Control(&adrc_input3 , rate_sp(2) , rate(2));
+	torque(0)= LADRC_Control(LADRC_Pitch , rate_sp(0) , rate(0));
+	torque(1)= LADRC_Control(LADRC_Roll , rate_sp(1) , rate(1));
+	torque(2)= LADRC_Control(LADRC_Yaw , rate_sp(2) , rate(2)); */
+
+	//ADRC control
+	static Fhan_Data ADRC_Pitch={0},ADRC_Roll={0},ADRC_Yaw{0};
+	ADRC_Init(&ADRC_Pitch,&ADRC_Roll,&ADRC_Yaw);
+	Vector3f torque;
+	torque(0)= ADRC_Control(&ADRC_Pitch , rate_sp(0) , rate(0));
+	torque(1)= ADRC_Control(&ADRC_Roll , rate_sp(1) , rate(1));
+	torque(2)= ADRC_Control(&ADRC_Yaw , rate_sp(2) , rate(2));
+	//PX4_INFO("rate_sp:%.2f  torque:%.2f",(double)rate_sp(0),(double)rate(0));
 	 //update integral only if we are not landed
-	/* if (!landed) {
+
+	 /* ofstream outfile;
+	 outfile.open("/home/sunyi/PX4_Firmware/log/pitch_tail.txt",ios::app);
+	 outfile<<"sp:"<<rate_sp(1)<<"   rate:"<<rate(1)<<endl;
+	 outfile.close(); */
+	 if (!landed) {
 		updateIntegral(rate_error, dt);
-	} */
+	}
 
 	return torque;
 }

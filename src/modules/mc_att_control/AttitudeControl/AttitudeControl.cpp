@@ -59,9 +59,9 @@ matrix::Vector3f AttitudeControl::update(matrix::Quatf q, matrix::Quatf qd, cons
 	qd.normalize();
 
 	// calculate reduced desired attitude neglecting vehicle's yaw to prioritize roll and pitch
-	const Vector3f e_z = q.dcm_z();
+	const Vector3f e_z = q.dcm_z();//计算z轴单位向量
 	const Vector3f e_z_d = qd.dcm_z();
-	Quatf qd_red(e_z, e_z_d);
+	Quatf qd_red(e_z, e_z_d);//计算去除旋转误差后仅代表倾斜误差的四元数
 
 	if (fabsf(qd_red(1)) > (1.f - 1e-5f) || fabsf(qd_red(2)) > (1.f - 1e-5f)) {
 		// In the infinitesimal corner case where the vehicle and thrust have the completely opposite direction,
