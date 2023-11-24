@@ -179,5 +179,8 @@
         "yaml.schemas": {
                 "${workspaceRoot}/validation/module_schema.yaml": "${workspaceRoot}/src/modules/*/module.yaml"
         },
-        "ros.distro": "melodic"
+        "ros.distro": "melodic",
+        "python.autoComplete.extraPaths": [
+                "/opt/ros/noetic/lib/python3/dist-packages"
+        ]
 }
