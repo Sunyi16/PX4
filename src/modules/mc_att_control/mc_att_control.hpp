@@ -104,7 +104,7 @@ private:
 	/**
 	 * Morphing controller
 	*/
-	void		control_morph();
+	//void		control_morph();
 
 	AttitudeControl _attitude_control; ///< class for attitude control calculations
 
@@ -121,7 +121,7 @@ private:
 	uORB::Publication<vehicle_rates_setpoint_s>	_v_rates_sp_pub{ORB_ID(vehicle_rates_setpoint)};			/**< rate setpoint publication */
 	uORB::Publication<vehicle_attitude_setpoint_s>	_vehicle_attitude_setpoint_pub;
 
-	uORB::Publication<actuator_controls_s>	_actuators2_set{ORB_ID(actuator_controls_2)};		/*morph setpoint publication*/
+	//uORB::Publication<actuator_controls_s>	_actuators2_set{ORB_ID(actuator_controls_2)};		/*morph setpoint publication*/
 
 	struct vehicle_attitude_s		_v_att {};		/**< vehicle attitude */
 	struct vehicle_attitude_setpoint_s	_v_att_sp {};		/**< vehicle attitude setpoint */
@@ -163,12 +163,8 @@ private:
 		_param_mpc_thr_hover,			/**< throttle at which vehicle is at hover equilibrium */
 		(ParamInt<px4::params::MPC_THR_CURVE>) _param_mpc_thr_curve,				/**< throttle curve behavior */
 
-		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode,
+		(ParamInt<px4::params::MC_AIRMODE>) _param_mc_airmode
 
-		(ParamInt<px4::params::ANGLE_ARM_ONE>) _param_angle_arm_one,/*The angle of four arms*/
-		(ParamInt<px4::params::ANGLE_ARM_TWO>) _param_angle_arm_two,
-		(ParamInt<px4::params::ANGLE_ARM_THREE>) _param_angle_arm_three,
-		(ParamInt<px4::params::ANGLE_ARM_FOUR>) _param_angle_arm_four
 	)
 
 	bool _is_tailsitter{false};

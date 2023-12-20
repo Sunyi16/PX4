@@ -1,6 +1,6 @@
 /****************************************************************************
  *
- *   Copyright (C) 2019 PX4 Development Team. All rights reserved.
+ *   Copyright (c) 2013-2015 PX4 Development Team. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -31,14 +31,22 @@
  *
  ****************************************************************************/
 
-#include <gtest/gtest.h>
-#include <RateControl.hpp>
+/**
+ * @file steering_engine_params.c
+ * Parameters for steering_engine.
+ *
+ * @author Sunyi<15531855673@163.com>
+ */
 
-using namespace matrix;
-
-TEST(RateControlTest, AllZeroCase)
-{
-	RateControl rate_control;
-	Vector3f torque = rate_control.update(Vector3f(), Vector3f(), Vector3f(), 0.f, false);
-	EXPECT_EQ(torque, Vector3f());
-}
+/**
+ * pwm_value
+ *
+ * set aux_pwm
+ *
+ * @min 1000
+ * @max 2000
+ * @decimal 1
+ * @increment 5
+ * @group Multicopter Attitude Control
+ */
+PARAM_DEFINE_INT32(PWM_VALUE, 1000);

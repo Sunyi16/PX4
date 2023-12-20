@@ -51,12 +51,10 @@ fi
 #
 # Start Multicopter Rate Controller.
 #
-mc_rate_control_adrc start
-#mc_rate_control start
+mc_rate_control start
 #
 # Start Multicopter Attitude Controller.
-#
-#mc_att_control_smc start
+
 mc_att_control start
 #
 # Start Multicopter Position Controller.
@@ -65,7 +63,11 @@ mc_hover_thrust_estimator start
 mc_pos_control start
 #first start
 #my_workq start
+steering_engine start
 #
 # Start Multicopter Land Detector.
 #
 land_detector start multicopter
+
+#设置输出开机初始化
+param set PWM_VALUE 1000

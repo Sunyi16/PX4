@@ -36,12 +36,12 @@ px4_add_board(
 		local_position_estimator
 		logger
 		mavlink
-		mc_att_control
+		#mc_att_control
 		#mc_att_control_smc
 		mc_hover_thrust_estimator
 		mc_pos_control
 		#mc_rate_control
-		mc_rate_control_adrc
+		#mc_rate_control_adrc
 		navigator
 		rc_update
 		replay

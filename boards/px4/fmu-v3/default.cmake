@@ -77,11 +77,10 @@ px4_add_board(
 		local_position_estimator
 		logger
 		mavlink
-		#mc_att_control
-		mc_att_control_smc
+		mc_att_control
 		mc_hover_thrust_estimator
 		mc_pos_control
-		#mc_rate_control
+		mc_rate_control
 		#micrortps_bridge
 		navigator
 		rc_update
@@ -91,8 +90,7 @@ px4_add_board(
 		temperature_compensation
 		vmount
 		vtol_att_control
-		#steering_engine
-		#first
+		steering_engine
 	SYSTEMCMDS
 		bl_update
 		config

@@ -5,4 +5,5 @@ px4_add_module(
 	COMPILE_FLAGS
 	SRCS
 		steering_engine.cpp
+		steering_engine.h
 )

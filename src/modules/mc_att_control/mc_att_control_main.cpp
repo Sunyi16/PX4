@@ -249,7 +249,7 @@ MulticopterAttitudeControl::publish_rates_setpoint()
 	_v_rates_sp_pub.publish(v_rates_sp);
 }
 
-void
+/* void
 MulticopterAttitudeControl::control_morph()
 {
 	float angle1 = (float)_param_angle_arm_one.get()/10;
@@ -286,7 +286,7 @@ MulticopterAttitudeControl::control_morph()
 	//_actuators2.timestamp_sample = _ctrl_state.timestamp;
 	_actuators2_set.publish(_actuators2);
 }
-
+ */
 void
 MulticopterAttitudeControl::Run()
 {
@@ -381,7 +381,7 @@ MulticopterAttitudeControl::Run()
 
 	}
 
-	control_morph();
+	//control_morph();
 	perf_end(_loop_perf);
 }
 
